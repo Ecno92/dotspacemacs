@@ -239,6 +239,8 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
+  (custom-set-variables
+   '(initial-frame-alist (quote ((fullscreen . maximized)))))
   )
 
 (defun dotspacemacs/user-config ()
