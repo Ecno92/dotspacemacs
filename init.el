@@ -251,11 +251,16 @@ in `dotspacemacs/user-config'."
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   (windmove-default-keybindings)
+
   (add-hook 'js2-mode-hook
             (defun my-js2-mode-setup ()
               (flycheck-mode t)
               (when (executable-find "eslint")
                 (flycheck-select-checker 'javascript-eslint))))
+
+  (setq whitespace-line-column 80)
+  (setq whitespace-style '(face lines-tail))
+  (add-hook 'prog-mode-hook 'whitespace-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
