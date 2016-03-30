@@ -263,6 +263,9 @@ layers configuration. You are free to put any user code."
   (setq whitespace-line-column 80)
   (setq whitespace-style '(face lines-tail))
   (add-hook 'prog-mode-hook 'whitespace-mode)
+
+  (setq neo-smart-open t)
+  (setq projectile-switch-project-action 'neotree-projectile-action)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
