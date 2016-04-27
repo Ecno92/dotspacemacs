@@ -254,6 +254,10 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (ido-mode -1)
+  (setq projectile-completion-system 'helm)
+  (helm-projectile-on)
+
   (windmove-default-keybindings)
 
   (add-hook 'js2-mode-hook
