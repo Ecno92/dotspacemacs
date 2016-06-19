@@ -51,6 +51,8 @@ values."
    dotspacemacs-additional-packages '(wgrep
                                       browse-at-remote
                                       comint
+                                      ag
+                                      dumb-jump)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(tern
                                     company-tern
@@ -260,6 +262,8 @@ layers configuration. You are free to put any user code."
   (setq projectile-completion-system 'helm)
   (helm-projectile-on)
 
+  (dumb-jump-mode)
+  
   (windmove-default-keybindings)
 
   (add-hook 'js2-mode-hook
