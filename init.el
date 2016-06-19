@@ -49,7 +49,8 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(wgrep
-                                      browse-at-remote)
+                                      browse-at-remote
+                                      comint
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(tern
                                     company-tern
@@ -273,6 +274,18 @@ layers configuration. You are free to put any user code."
 
   (setq neo-smart-open t)
   (setq projectile-switch-project-action 'neotree-projectile-action)
+
+  ;; Secure password prompts.
+  (setq comint-password-prompt-regexp
+        (concat
+         "\\("
+         "Password for 'http.*':"
+         "\\|"
+         "\\w+ password:"
+         "\\|"
+         comint-password-prompt-regexp
+         "\\)"
+         ))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
