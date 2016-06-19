@@ -33,6 +33,7 @@ values."
      javascript
      html
      markdown
+     csv
      ansible
      shell
      ;; (shell :variables
