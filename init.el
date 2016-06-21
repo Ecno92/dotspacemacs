@@ -291,7 +291,5 @@ layers configuration. You are free to put any user code."
          comint-password-prompt-regexp
          "\\)"
          ))
-  )
+  '(python-shell-interpreter "python3"))
 
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
