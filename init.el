@@ -264,7 +264,7 @@ layers configuration. You are free to put any user code."
   (helm-projectile-on)
 
   (dumb-jump-mode)
-  
+
   (windmove-default-keybindings)
 
   (add-hook 'js2-mode-hook
