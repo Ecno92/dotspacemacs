@@ -284,6 +284,4 @@ layers configuration. You are free to put any user code."
          comint-password-prompt-regexp
          "\\)"
          ))
-  (setq python-shell-interpreter "python3")
-  )
-
+  '(python-shell-interpreter "python3"))
