@@ -273,13 +273,6 @@ layers configuration. You are free to put any user code."
               (when (executable-find "eslint")
                 (flycheck-select-checker 'javascript-eslint))))
 
-  (setq whitespace-line-column 80)
-  (setq whitespace-style '(face lines-tail))
-  (add-hook 'prog-mode-hook 'whitespace-mode)
-
-  (setq neo-smart-open t)
-  (setq projectile-switch-project-action 'neotree-projectile-action)
-
   ;; Secure password prompts.
   (setq comint-password-prompt-regexp
         (concat
