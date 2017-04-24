@@ -29,7 +29,7 @@ values."
      git
      emoji
      python
-     php
+     ;; php
      javascript
      html
      markdown
