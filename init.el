@@ -23,37 +23,47 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
      ;; better-defaults
+     ;; org
+     ;; spell-checking
+     ;; version-control
+     ansible
+     auto-completion
+     csv
+     docker
      emacs-lisp
      git
-     emoji
-     python
-     ;; php
-     javascript
+     go
      html
+     ivy
+     javascript
      markdown
-     csv
-     ansible
-     shell
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     python
+     react
+     yaml
+     sql
+     vagrant
+     yaml
      spell-checking
      syntax-checking
-     yaml
-     vagrant
-     ;; version-control
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(wgrep
-                                      browse-at-remote
-                                      comint
-                                      ag
-                                      dumb-jump)
+   dotspacemacs-additional-packages
+   '(
+     ag
+     dumb-jump
+     editorconfig
+     po-mode
+     rjsx-mode
+     wgrep
+     browse-at-remote
+     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(tern
                                     company-tern
@@ -203,7 +213,7 @@ values."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -245,7 +255,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup 'trailing
+   dotspacemacs-whitespace-cleanup nil
    ))
 
 (defun dotspacemacs/user-init ()
@@ -253,7 +263,6 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
-  (setq-default dotspacemacs-themes '(spacemacs-light spacemacs-dark zenburn))
   )
 
 (defun dotspacemacs/user-config ()
@@ -261,37 +270,58 @@ in `dotspacemacs/user-config'."
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   (ido-mode -1)
-  (setq projectile-completion-system 'helm)
-  (helm-projectile-on)
-
+  (editorconfig-mode 1)
   (dumb-jump-mode)
-
+  (blink-cursor-mode)
+  (winner-mode 1)
   (windmove-default-keybindings)
 
-  (add-hook 'js2-mode-hook
-            (defun my-js2-mode-setup ()
-              (flycheck-mode t)
-              (when (executable-find "eslint")
-                (flycheck-select-checker 'javascript-eslint))))
+  ;; To avoid double modeline numbers
+  (spaceline-toggle-workspace-number-off)
 
-  ;; Secure password prompts.
+  (require 'comint)
   (setq comint-password-prompt-regexp
-        (concat
-         "\\("
-         "Password for 'http.*':"
-         "\\|"
-         "\\w+ password:"
-         "\\|"
-         comint-password-prompt-regexp
-         "\\)"
-         ))
-  '(python-shell-interpreter "python3"))
+        (concat comint-password-prompt-regexp
+                "\\|^Password for 'http[^']*':"
+                "\\|^Vault password:"))
+  (require 'python)
+  (defun my-shell-mode-hook ()
+    (add-hook 'comint-output-filter-functions 'python-pdbtrack-comint-output-filter-function t))
+
+  ;; This was killing Emacs on large output...
+  ;; http://emacs.1067599.n5.nabble.com/bug-16875-python-comint-mode-Large-output-makes-Emacs-freeze-td315242.html
+  ;;
+  ;; (add-hook 'shell-mode-hook 'my-shell-mode-hook)
+
+  (setq-default
+   ;; js2-mode
+   js2-basic-offset 2
+   js-indent-level 2
+   js2-strict-missing-semi-warning nil
+   js2-missing-semi-one-line-override t
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
+  (with-eval-after-load 'web-mode
+    (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+
+  (add-hook 'js2-jsx-mode-hook
+            (lambda ()
+              (flycheck-mode))))
+
+;; Do not write anything past this comment. This is where Emacs will
+;; auto-generate custom variable definitions.
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((python-sort-imports-on-save t)))))
+)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
