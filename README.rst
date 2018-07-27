@@ -14,5 +14,3 @@ How to install
 
 1. Install spacemacs ``$ git clone git@github.com:syl20bnr/spacemacs.git ~/.emacs.d``
 2. Install the dotfiles ``$ git clone git@github.com:Ecno92/dotspacemacs.git ~/.spacemacs.d``
-3. Install the Source Code Pro font ``$ ~/.spacemacs.d/install_scp_font.sh``
-
