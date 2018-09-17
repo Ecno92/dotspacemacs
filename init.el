@@ -60,6 +60,7 @@ values."
      dumb-jump
      editorconfig
      po-mode
+     toml-mode
      rjsx-mode
      wgrep
      browse-at-remote
